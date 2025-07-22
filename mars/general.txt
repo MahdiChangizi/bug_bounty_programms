@@ -1,0 +1,164 @@
+window.addEventListener('storage', (event) => {
+	    if (event.storageArea === localStorage) {
+	        if (event.newValue !== null) {
+	            console.log(`Added: key="${event.key}", value="${event.newValue}"`);
+	        } else {
+	            console.log(`Removed: key="${event.key}"`);
+	        }
+	    }
+	});
+
+
+
+
+
+invoke
+url
+returnUrl
+redirect_uri
+offercode
+bin
+agentUri
+reportUrl
+cvolver
+redirAfterLogin
+redirectTo
+buildUrl
+redirectWithToken
+administracion
+fromURI
+ReturnToUrl
+referrer
+return_url
+appRedirect
+state
+client
+protocol
+response_type
+scope
+audience
+original
+urlredirect
+checkout_url
+lp
+mrasn
+redirect
+referer
+path
+aspxerrorpath
+ref
+callback
+next
+continue
+target
+goto
+to
+
+
+
+
+serach key:
+	l.params.username
+	fetch
+	.query.
+	get("name")
+	dangerouslySetInnerHTML
+	__html
+	innerHTML
+	name:
+	path:
+	component:
+	redirectToApp
+	page.redirect
+	URLSearchParams 
+
+	window.location  
+	window.location.search  
+	URL.searchParams  
+	fetch()  
+	XMLHttpRequest  
+	FormData  
+	window.location.hash  
+	window.location.href  
+	URL.hash  
+
+
+
+
+{
+  "data": {
+    "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30",
+    "user": {
+      "id": 42,
+      "email": "mahdi@gmail.com",
+      "username": "mahdi"
+    }
+  }
+}
+
+redirectTo
+
+jwtToken
+    Gt
+.send
+
+
+/admin/renew-token
+/admin/telemetry-properties
+/auth/:authType
+/usecase
+
+
+
+https://signin.royalcanin.com/oauth2/default/v1/authorize?response_type=code&client_id=0oa2u8k0vivfLA5UI417&redirect_uri=https%3A%2F%2Fwebshop.royalcanin.com%2Fsso%2Fauthorization%2Fcallback&state=lZauHSxRrRWyAoss17jHrYfVt&scope=openid+offline_access+profile+groups
+https://www.royalcanin.com/uk
+https://admin.indsight.royalcanin.com/admin/auth/login
+
+
+
+
+https://accounts.google.com/o/oauth2/auth?state=WjJsb1RtcXN4WXlkQUdpNUhudjJQTXhBbm1oUlh4V0pLRTMySFZuQUNSQ0g5SWpoRmJFR0NHK1FqSDRzVHBvRA&client_id=328194306841-08s6fph406vckreaoda1int9hgitq3la.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fsignin.royalcanin.com%2Foauth2%2Fv1%2Fauthorize%2Fcallback&response_type=code&scope=email+openid+profile
+
+https://accounts.google.com/o/oauth2/auth?state=ZkF6WUIxUk5qVENrSnlmOHdEeTJsQjd3VHV3a0cyREJ1aXVPUzBJdnhmRWYzTnBnZVdpSlZDQzd6cVRmMVJGMw&client_id=328194306841-08s6fph406vckreaoda1int9hgitq3la.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fsignin.royalcanin.com%2Foauth2%2Fv1%2Fauthorize%2Fcallback&response_type=code&display=page&scope=email+openid+profile
+
+
+0AVMBsJhjtrDRkGJsxjbv55ByjxUaT24uJwCX_n7Ad8QYK_YSXIdHpS2sVp97J8tB6kYO6A
+
+
+redirectUri
+redirect_uri
+redirect
+
+
+
+
+
+
+
+#Unrestricted Email Sending – Security Misconfiguration
+
+## Summary:
+I found a security misconfiguration in the `PUT /user/email` endpoint that allows authenticated users to send unlimited emails to **any email address** without validation or rate-limiting.
+
+## Steps to Reproduce:
+1. Login to `https://account.royalcanin.com`
+2. Navigate to `Username and Password` from the sidebar or visit:
+   `https://account.royalcanin.com/manager/security`
+3. Click `Change Email`
+4. Intercept the request to:
+   `PUT /user/email` (using Burp or similar tool)
+5. Replay the same request with different email addresses, repeatedly
+
+## Supporting Material/References:
+You can use the following request to reproduce:
+```
+PUT /user/email HTTP/2
+Host: prd-weu1-rc-df-myaccount-bff.cloud-effem.com
+Authorization: Bearer <your JWT>
+Content-Type: application/json
+...
+{"newEmail":"victim@example.com","locale":"en_US"}
+```
+
+impact:
+This can be abused for spam or reputation damage. It is considered a **Security Misconfiguration**, as it lacks proper restrictions or validation for email sending.
