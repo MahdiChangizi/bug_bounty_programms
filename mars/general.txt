@@ -117,23 +117,6 @@ https://admin.indsight.royalcanin.com/admin/auth/login
 
 
 
-https://accounts.google.com/o/oauth2/auth?state=WjJsb1RtcXN4WXlkQUdpNUhudjJQTXhBbm1oUlh4V0pLRTMySFZuQUNSQ0g5SWpoRmJFR0NHK1FqSDRzVHBvRA&client_id=328194306841-08s6fph406vckreaoda1int9hgitq3la.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fsignin.royalcanin.com%2Foauth2%2Fv1%2Fauthorize%2Fcallback&response_type=code&scope=email+openid+profile
-
-https://accounts.google.com/o/oauth2/auth?state=ZkF6WUIxUk5qVENrSnlmOHdEeTJsQjd3VHV3a0cyREJ1aXVPUzBJdnhmRWYzTnBnZVdpSlZDQzd6cVRmMVJGMw&client_id=328194306841-08s6fph406vckreaoda1int9hgitq3la.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fsignin.royalcanin.com%2Foauth2%2Fv1%2Fauthorize%2Fcallback&response_type=code&display=page&scope=email+openid+profile
-
-
-0AVMBsJhjtrDRkGJsxjbv55ByjxUaT24uJwCX_n7Ad8QYK_YSXIdHpS2sVp97J8tB6kYO6A
-
-
-redirectUri
-redirect_uri
-redirect
-
-
-
-
-
-
 
 #Unrestricted Email Sending – Security Misconfiguration
 
@@ -162,3 +145,61 @@ Content-Type: application/json
 
 impact:
 This can be abused for spam or reputation damage. It is considered a **Security Misconfiguration**, as it lacks proper restrictions or validation for email sending.
+
+
+
+
+https://www.royalcanin.com/us/shop/register?redirect_uri=https%3A%2F%2Fwww.royalcanin.com&client=0oamkkuay3Bdq8tHc416&login_redirect_uri=&redirect_uri_after_registration=
+
+https://welcome.royalcanin.com/?redirect_uri=https:%2F%2Faccount.royalcanin.com&client=0oa603wkkXHXpAa0k416&login_redirect_uri=&redirect_uri_after_registration=&_gl=1*1ko99y0*_gcl_au*MTczMDA4OTc2NS4xNzUzMTcxMzky*_ga*NjQyODE3NTM2LjE3NTMxNzEzNzg.*_ga_BYDNNWSXGT*czE3NTMxNzc4MDYkbzIkZzAkdDE3NTMxNzc4MDYkajYwJGwwJGgxNDY3Mzc0NTA.
+
+https://www.royalcanin.com/us/shop/account/information -> different panel
+
+https://my.royalcanin.com/signin?utm_campaign=2024-rc-us-other-other-hubProfesionalPortal&utm_source=line&utm_medium=po-affiliate-hubProfesionalPortal&_ga=2.182303015.1816165381.1699747841-1112656882.1693493334&_gl=1*u6wzl8*_gcl_au*MTg4ODIxMDMwNy4xNzUyMTQ4NTU0Ljg3MjIxMTkxOC4xNzUzMTcxNDQwLjE3NTMxNzE0NDA.*_ga*MTI3MjIyNjQ3MS4xNzUyMTQ4NTUw*_ga_BYDNNWSXGT*czE3NTMyNTAwMjMkbzEyJGcxJHQxNzUzMjUwODI5JGo2MCRsMCRoMTY0MjgyMzM5OA..
+
+
+/factor/phone/sendpasscode
+
+ this.createUserByEmail = "/lifecycle/register/custom",
+            this.createUserByPhone = "/lifecycle/phone/register",
+            this.resetPasswordUByPhone = "/lifecycle/phone/reset",
+            this.resetPasswordUByUsername = "/lifecycle/username/reset",
+            this.consentEndpoint = "/consent/users/",
+            this.activateEndpoint = "/activate",
+            this.setPwdEndpoint = "/set",
+            this.verifyRedirectUriEndpoint = "/lifecycle/redirect_uri/verify",
+            this.resetPwdEndpoint = "/reset",
+            this.activationPhoneLinkEndPoint = "/lifecycle/phone/activation_link",
+            this.sendPhoneCode = "/factor/phone/sendpasscode",
+            this.LoginType = ji,
+            this.requestForgotEmailUrl = `${this.myAccountBffUrl}/user/retrieve_email`,
+
+
+WishListEmailScheduleModel
+WishListModel
+sendEmail
+
+
+
+
+## Summary:
+I found a security misconfiguration in the `PUT /us/shop/api/customer/customerBase` endpoint that allows authenticated users to change their email to any email address without validation or rate-limiting.
+
+## Steps to Reproduce:
+1. Login and go to: `https://www.royalcanin.com/us/shop/account/information`
+2. Click on edit for `My Contact Information` section
+3. Intercept the PUT /us/shop/api/customer/customerBase request.
+4. Change the email in the request to any email you want (even if it exist)
+5. Send the request — get 200 OK, email changes.
+6. New email appears in shop panel
+
+## Supporting Material/References:
+You can use the following request to reproduce:
+```
+PUT /us/shop/api/customer/customerBase HTTP/2
+Host: www.royalcanin.com
+Authorization: Bearer <your JWT>
+Content-Type: application/json
+...
+{"email":"attacker.changiz@gmail.com", ...}
+```

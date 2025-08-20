@@ -1,0 +1,39 @@
+"mondoo" => {
+	"cloudy"
+	"nginx"
+	"react"
+	"GraphQL"
+	"node.js"
+	"typescript"
+	"Google Cloud CDN"
+	"source_map": "open"
+	"github": "https://github.com/mondoohq"
+	"Security_Policies": "https://github.com/mondoohq/mondoo-operator/security"
+}
+
+OAuth -> it's FireBase -> Safe
+
+
+
+Points:
+
+VITE_AUTH_PROVIDER_OIDC_REDIRECT_URL
+window.AppConfig.VITE_AUTH_PROVIDER_OIDC_REDIRECT_URL
+
+headers: {
+    "x-sentry-rate-limits": u.headers.get("X-Sentry-Rate-Limits"),
+    "retry-after": u.headers.get("Retry-After"),
+    "x-hubspot-correlation-id": u.headers.get("X-HubSpot-Correlation-Id")
+}
+
+if (redirectToParam) {
+        navigate(redirectToParam);
+}
+
+
+
+
+
+
+
+

@@ -115,3 +115,6 @@ urlredirect
 lp
 mrasn
 aspxerrorpath
+redirect_uri_after_registration
+login_redirect_uri
+redirect_uri_after_login

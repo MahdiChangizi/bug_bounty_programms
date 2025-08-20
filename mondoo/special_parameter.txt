@@ -1,0 +1,5 @@
+redirectTo
+error_uri
+redirect_uri
+metadataUrl
+post_logout_redirect_uri
